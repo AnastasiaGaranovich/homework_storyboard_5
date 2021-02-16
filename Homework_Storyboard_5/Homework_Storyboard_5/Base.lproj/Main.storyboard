@@ -24,25 +24,36 @@
             </objects>
             <point key="canvasLocation" x="-283" y="314"/>
         </scene>
-        <!--View Controller-->
+        <!--Background View Controller-->
         <scene sceneID="SNb-Oi-EFV">
             <objects>
-                <viewController id="Vh4-T0-Qn2" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BackgroundViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Vh4-T0-Qn2" customClass="BackgroundViewController" customModule="Homework_Storyboard_5" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mVh-x9-GR8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DZS-Ja-86h">
-                                <rect key="frame" x="137" y="433" width="140" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DZS-Ja-86h">
+                                <rect key="frame" x="137" y="460" width="140" height="30"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <state key="normal" title="Change Background">
                                     <color key="titleColor" systemColor="labelColor"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="changeBackgroundButtonPressed:" destination="Vh4-T0-Qn2" eventType="touchUpInside" id="Wnf-TE-RnQ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gyW-ll-UJ5"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DZS-Ja-86h" firstAttribute="centerY" secondItem="gyW-ll-UJ5" secondAttribute="centerY" id="HvZ-qm-Oci"/>
+                            <constraint firstItem="DZS-Ja-86h" firstAttribute="centerX" secondItem="gyW-ll-UJ5" secondAttribute="centerX" id="Zp4-S5-GTs"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="m8H-aa-J8v"/>
                 </viewController>
@@ -50,12 +61,12 @@
             </objects>
             <point key="canvasLocation" x="478" y="313"/>
         </scene>
-        <!--View Controller-->
+        <!--Changing View Controller-->
         <scene sceneID="oGg-Lc-L3W">
             <objects>
-                <viewController id="rf8-3d-aDg" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChangingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rf8-3d-aDg" customClass="ChangingViewController" customModule="Homework_Storyboard_5" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZF0-g2-ZOQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="LjU-FZ-3HF">
@@ -63,20 +74,34 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="minimumTrackTintColor" red="0.81568627449999997" green="0.10980392160000001" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="redSliderChanged:" destination="rf8-3d-aDg" eventType="valueChanged" id="dMQ-WP-2xR"/>
+                                </connections>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="cPg-5l-GeE">
                                 <rect key="frame" x="18" y="310" width="304" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="minimumTrackTintColor" systemColor="systemGreenColor"/>
+                                <connections>
+                                    <action selector="greenSliderChanged:" destination="rf8-3d-aDg" eventType="valueChanged" id="fxD-Yl-Zwh"/>
+                                </connections>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="xPp-eT-9SR">
                                 <rect key="frame" x="18" y="388" width="304" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="minimumTrackTintColor" systemColor="systemBlueColor"/>
+                                <connections>
+                                    <action selector="blueSliderChanged:" destination="rf8-3d-aDg" eventType="valueChanged" id="tid-5p-d1M"/>
+                                </connections>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ova-J8-68e">
-                                <rect key="frame" x="18" y="547" width="304" height="30"/>
+                                <rect key="frame" x="18" y="502" width="304" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="minimumTrackTintColor" systemColor="systemGray6Color"/>
+                                <color key="maximumTrackTintColor" red="0.10980392160000001" green="0.10980392160000001" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="opacitySliderChanged:" destination="rf8-3d-aDg" eventType="valueChanged" id="Ql6-ID-If7"/>
+                                </connections>
                             </slider>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OXe-nQ-qdX">
                                 <rect key="frame" x="328" y="238" width="66" height="34"/>
@@ -96,17 +121,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sfI-QE-EAI">
-                                <rect key="frame" x="297" y="453" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UBi-OH-8Kq">
-                                <rect key="frame" x="87" y="625" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Red" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jzJ-en-hsV">
                                 <rect key="frame" x="20" y="214" width="30" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -129,29 +143,52 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Opacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghi-zR-sHc">
-                                <rect key="frame" x="20" y="508" width="59" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hex color #" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaI-Tf-00N">
-                                <rect key="frame" x="195" y="460" width="87" height="21"/>
+                                <rect key="frame" x="20" y="471" width="59" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EbZ-de-m0I">
-                                <rect key="frame" x="328" y="542" width="66" height="34"/>
+                                <rect key="frame" x="328" y="500" width="66" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lj8-3d-eWi">
+                                <rect key="frame" x="20" y="598" width="374" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="3zv-S0-5Wq"/>
+                                    <constraint firstAttribute="width" constant="374" id="tUg-CI-VP4"/>
+                                </constraints>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" systemColor="labelColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneButtonPressed:" destination="rf8-3d-aDg" eventType="touchUpInside" id="PzU-Vy-uK4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RGE-It-Soy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="lj8-3d-eWi" firstAttribute="leading" secondItem="RGE-It-Soy" secondAttribute="leading" constant="20" id="NSX-D4-K9v"/>
+                            <constraint firstItem="RGE-It-Soy" firstAttribute="trailing" secondItem="lj8-3d-eWi" secondAttribute="trailing" constant="20" id="Opc-Jg-7tJ"/>
+                            <constraint firstItem="RGE-It-Soy" firstAttribute="bottom" secondItem="lj8-3d-eWi" secondAttribute="bottom" constant="126" id="ngp-yc-7Sz"/>
+                        </constraints>
                     </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="blueColorSlider" destination="xPp-eT-9SR" id="VR2-Hu-e66"/>
+                        <outlet property="blueColorTextField" destination="2qf-tT-EOa" id="IBK-jy-23t"/>
+                        <outlet property="doneButton" destination="lj8-3d-eWi" id="Q9f-Nj-0vL"/>
+                        <outlet property="greenColorSlider" destination="cPg-5l-GeE" id="BFp-p9-uIz"/>
+                        <outlet property="greenColorTextField" destination="ULR-6F-s8t" id="uDA-jJ-i9Y"/>
+                        <outlet property="opacitySlider" destination="ova-J8-68e" id="Fv7-xy-MmK"/>
+                        <outlet property="opacityTextField" destination="EbZ-de-m0I" id="ULb-6E-0gH"/>
+                        <outlet property="redColorSlider" destination="LjU-FZ-3HF" id="qYe-Wq-BEx"/>
+                        <outlet property="redColorTextField" destination="OXe-nQ-qdX" id="SL3-w8-pmj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rvO-JW-W4J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -170,6 +207,9 @@
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
