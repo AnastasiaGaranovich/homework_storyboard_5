@@ -1,8 +1,10 @@
 import UIKit
 
-class BackgroundViewController: UIViewController {
+class BackgroundViewController: UIViewController, ChangingViewControllerDelegate {
     
-    var backColor: UIColor?
+    func didPressButton(color: UIColor) {
+        self.view.backgroundColor = color
+    }
     
     @IBAction func changeBackgroundButtonPressed(_ sender: UIButton) {
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -12,7 +14,5 @@ class BackgroundViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = backColor
-        backColor = self.view.backgroundColor
     }
 }

@@ -1,5 +1,9 @@
 import UIKit
 
+protocol ChangingViewControllerDelegate: class {
+    func didPressButton(color: UIColor)
+}
+
 enum ColorNumInputError: Error {
     case wrongColorRange(String)
     case wrongInput(String)
@@ -19,6 +23,9 @@ class ChangingViewController: UIViewController {
     
     @IBOutlet weak var doneButton: UIButton!
     
+    weak var delegate: ChangingViewControllerDelegate?
+    var color: UIColor!
+    
     var redColorSl: Float = 0.0
     var greenColorSl: Float = 0.0
     var blueColorSl: Float = 0.0
@@ -26,14 +33,10 @@ class ChangingViewController: UIViewController {
     
     
     @IBAction func doneButtonPressed(_ sender: UIButton) {
-        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "BackgroundViewController")
-        navigationController?.pushViewController(viewController, animated: true)
-        let selectedColorSl = UIColor(rgbColorCodeRed: redColorSl, green: greenColorSl, blue: blueColorSl, alpha: opacitySl)
-        transition(color: selectedColorSl)
-        
         do {
-            try checkColorRange()
+            let selectedColor = try checkColorRange()
+            delegate?.didPressButton(color: selectedColor)
+            navigationController?.popViewController(animated: true)
         } catch ColorNumInputError.wrongColorRange(let message) {
             AlertView(message: message)
         } catch ColorNumInputError.wrongInput(let message){
@@ -64,12 +67,7 @@ class ChangingViewController: UIViewController {
         doneButton.backgroundColor = UIColor(rgbColorCodeRed: redColorSl, green: greenColorSl, blue: blueColorSl, alpha: opacitySl)
     }
     
-    private func transition(color: UIColor?) {
-        let viewController =  UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BackgroundViewController") as! BackgroundViewController
-        viewController.backColor = color
-    }
-    
-    private func checkColorRange() throws {
+    private func checkColorRange() throws -> UIColor {
         
         let redColor:Float? = Float(redColorTextField.text ?? "")
         let greenColor:Float? = Float(greenColorTextField.text ?? "")
@@ -101,7 +99,7 @@ class ChangingViewController: UIViewController {
             throw ColorNumInputError.wrongColorRange("Wrong Opacity Range")
         }
         let selectedColor = UIColor(rgbColorCodeRed: red, green: green, blue: blue, alpha: opacity)
-        transition(color: selectedColor)
+        return selectedColor
     }
     
     private func AlertView(message: String) {
