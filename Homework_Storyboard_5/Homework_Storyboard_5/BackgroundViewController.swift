@@ -8,7 +8,9 @@ class BackgroundViewController: UIViewController, ChangingViewControllerDelegate
     
     @IBAction func changeBackgroundButtonPressed(_ sender: UIButton) {
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "ChangingViewController")
+        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "ChangingViewController") as! ChangingViewController
+        viewController.delegate = self
+        viewController.color = self.view.backgroundColor
         navigationController?.pushViewController(viewController, animated: true)
     }
     

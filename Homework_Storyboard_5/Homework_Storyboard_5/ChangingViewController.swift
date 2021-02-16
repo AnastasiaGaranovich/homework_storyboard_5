@@ -33,13 +33,13 @@ class ChangingViewController: UIViewController {
     
     
     @IBAction func doneButtonPressed(_ sender: UIButton) {
+        delegate?.didPressButton(color: doneButton.backgroundColor!)
+        navigationController?.popViewController(animated: true)
         do {
-            let selectedColor = try checkColorRange()
-            delegate?.didPressButton(color: selectedColor)
-            navigationController?.popViewController(animated: true)
+            _ = try checkColorRange()
         } catch ColorNumInputError.wrongColorRange(let message) {
             AlertView(message: message)
-        } catch ColorNumInputError.wrongInput(let message){
+        } catch ColorNumInputError.wrongInput(let message) {
             AlertView(message: message)
         }
         catch {
@@ -63,7 +63,7 @@ class ChangingViewController: UIViewController {
     }
     
     @IBAction func opacitySliderChanged(_ sender: UISlider) {
-        opacitySl = opacitySlider.value * 1
+        opacitySl = opacitySlider.value * 1.0
         doneButton.backgroundColor = UIColor(rgbColorCodeRed: redColorSl, green: greenColorSl, blue: blueColorSl, alpha: opacitySl)
     }
     
@@ -109,5 +109,27 @@ class ChangingViewController: UIViewController {
         })
         dialogMessage.addAction(ok)
         self.present(dialogMessage, animated: true, completion: nil)
+    }
+    
+    private func setSliders() {
+        redColorSlider.value = Float(color.components.red)
+        greenColorSlider.value = Float(color.components.green)
+        blueColorSlider.value = Float(color.components.blue)
+        opacitySlider.value = Float(color.components.alpha)
+    }
+    
+    private func setTextFields() {
+        redColorTextField.placeholder = String(Float(color.components.red * 255))
+        greenColorTextField.placeholder = String(Float(color.components.green * 255))
+        blueColorTextField.placeholder = String(Float(color.components.blue * 255))
+        opacityTextField.placeholder = String(Float(color.components.alpha * 1))
+
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setSliders()
+        doneButton.backgroundColor = color
+        setTextFields()
     }
 }
