@@ -15,6 +15,7 @@ class ChangingViewController: UIViewController {
     @IBOutlet weak var blueColorSlider: UISlider!
     @IBOutlet weak var opacitySlider: UISlider!
     
+    @IBOutlet weak var errorLabel: UILabel!
     
     @IBOutlet weak var redColorTextField: UITextField!
     @IBOutlet weak var greenColorTextField: UITextField!
@@ -26,48 +27,72 @@ class ChangingViewController: UIViewController {
     weak var delegate: ChangingViewControllerDelegate?
     var color: UIColor!
     
-    var redColorSl: Float = 0.0
-    var greenColorSl: Float = 0.0
-    var blueColorSl: Float = 0.0
-    var opacitySl: Float = 0.0
+    private var redColorSl: Float {
+        get {
+            return redColorSlider.value * 255.0
+        }
+        set {
+            redColorSlider.value = newValue / 255.0
+        }
+    }
     
+    private var greenColorSl: Float {
+        get {
+            return greenColorSlider.value * 255.0
+        }
+        set {
+            greenColorSlider.value = newValue / 255.0
+        }
+    }
+    
+    private var blueColorSl: Float {
+        get {
+            return blueColorSlider.value * 255.0
+        }
+        set {
+            blueColorSlider.value = newValue / 255.0
+        }
+    }
+    
+    private var opacitySl: Float {
+        get {
+            return opacitySlider.value * 1.0
+        }
+        set {
+            opacitySlider.value = newValue / 1.0
+        }
+    }
     
     @IBAction func doneButtonPressed(_ sender: UIButton) {
         delegate?.didPressButton(color: doneButton.backgroundColor!)
         navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func sliderChanged(_ sender: UISlider) {
+        setColor()
+    }
+    
+    private func setColor() {
+        color = UIColor(rgbColorCodeRed: redColorSl, green: greenColorSl, blue: blueColorSl, alpha: opacitySl)
+        doneButton.backgroundColor = color
+        setTextFields()
+    }
+    
+    @IBAction func textFieldChanged(_ sender: UITextField) {
         do {
-            _ = try checkColorRange()
+            try checkColorRange()
+            errorLabel.text = ""
         } catch ColorNumInputError.wrongColorRange(let message) {
-            AlertView(message: message)
+            errorLabel.text = message
         } catch ColorNumInputError.wrongInput(let message) {
-            AlertView(message: message)
+            errorLabel.text = message
         }
         catch {
-            print("Unknown error")
+            errorLabel.text = "Unknown error"
         }
     }
     
-    @IBAction func redSliderChanged(_ sender: UISlider) {
-        redColorSl = redColorSlider.value * 255.0
-        doneButton.backgroundColor = UIColor(rgbColorCodeRed: redColorSl, green: greenColorSl, blue: blueColorSl, alpha: opacitySl)
-    }
-    
-    @IBAction func greenSliderChanged(_ sender: UISlider) {
-        greenColorSl = greenColorSlider.value * 255.0
-        doneButton.backgroundColor = UIColor(rgbColorCodeRed: redColorSl, green: greenColorSl, blue: blueColorSl, alpha: opacitySl)
-    }
-    
-    @IBAction func blueSliderChanged(_ sender: UISlider) {
-        blueColorSl = blueColorSlider.value * 255.0
-        doneButton.backgroundColor = UIColor(rgbColorCodeRed: redColorSl, green: greenColorSl, blue: blueColorSl, alpha: opacitySl)
-    }
-    
-    @IBAction func opacitySliderChanged(_ sender: UISlider) {
-        opacitySl = opacitySlider.value * 1.0
-        doneButton.backgroundColor = UIColor(rgbColorCodeRed: redColorSl, green: greenColorSl, blue: blueColorSl, alpha: opacitySl)
-    }
-    
-    private func checkColorRange() throws -> UIColor {
+    private func checkColorRange() throws {
         
         let redColor:Float? = Float(redColorTextField.text ?? "")
         let greenColor:Float? = Float(greenColorTextField.text ?? "")
@@ -98,17 +123,12 @@ class ChangingViewController: UIViewController {
         if(opacity < 0 || opacity > 1) {
             throw ColorNumInputError.wrongColorRange("Wrong Opacity Range")
         }
-        let selectedColor = UIColor(rgbColorCodeRed: red, green: green, blue: blue, alpha: opacity)
-        return selectedColor
-    }
-    
-    private func AlertView(message: String) {
-        let dialogMessage = UIAlertController(title: "Attention", message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-            print("Ok button tapped")
-        })
-        dialogMessage.addAction(ok)
-        self.present(dialogMessage, animated: true, completion: nil)
+        redColorSl = red
+        greenColorSl = green
+        blueColorSl = blue
+        opacitySl = opacity
+        
+        setColor()
     }
     
     private func setSliders() {
